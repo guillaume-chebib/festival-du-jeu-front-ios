@@ -58,7 +58,7 @@ class Jeu : Identifiable, ObservableObject, Encodable, Equatable{
     ///   - age: age minimum
     ///   - proto: en avant première ?
     ///   - url: url des consignes
-
+//test
     init(id: Int, titre: String, min: Int, max: Int?, age: Int, proto: Bool, url : String?){
         self.id_jeu      = id
         self.titre_jeu    = titre
