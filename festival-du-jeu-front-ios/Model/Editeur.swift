@@ -6,8 +6,8 @@ import Combine
 
 
 
-class Societe : Identifiable, ObservableObject, Encodable, Equatable{
-    static func == (lhs: Societe, rhs: Societe) -> Bool {
+class Editeur : Identifiable, ObservableObject, Encodable, Equatable{
+    static func == (lhs: Editeur, rhs: Editeur) -> Bool {
         return lhs.id == rhs.id
     }
 
