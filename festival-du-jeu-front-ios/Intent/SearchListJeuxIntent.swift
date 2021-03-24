@@ -45,6 +45,7 @@ class SearchListJeuxIntent{
         self.listJeux.listJeuxState = .ready
                 
     }
+    
 
     func loadListeJeux() {
         var adresse = "https://festival-du-jeu-api.herokuapp.com/public/festival/20/jeu"

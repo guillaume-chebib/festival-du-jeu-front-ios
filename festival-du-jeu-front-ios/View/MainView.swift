@@ -12,7 +12,7 @@ struct MainView: View {
         TabView(selection: $tabSelected){
             HomePageView(searchListJeux: listJeux)
                 .tabItem{
-                    Label("Search", systemImage: "rectangle.and.text.magnifyingglass")
+                    Text("Recherche")
                 }.tag(0)
 //            PersonalPlayListView(personalPlaylist: personalPlaylist)
 //                .tabItem{

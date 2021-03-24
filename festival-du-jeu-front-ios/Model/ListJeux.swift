@@ -1,9 +1,11 @@
 //
+//  ListJeux.swift
+//  festival-du-jeu-front-ios
 //
+//  Created by etud on 24/03/2021.
 //
 
 import Foundation
-
 
 protocol ListJeuxDelegate {
     func listJeuxModified(jeu: Jeu, index: Int)
@@ -11,12 +13,11 @@ protocol ListJeuxDelegate {
     func listJeuxAdded(jeux: [Jeu])
     func listJeuxDeleted()
     func jeuDeleted(at: Int)
-    func jeuxMoved(from source: IndexSet, to destination: Int)
 }
 
 
 class ListJeux : ObservableObject{
-    
+        
     var delegate : ListJeuxDelegate?
     
     private(set) var jeux = [Jeu]()
@@ -37,13 +38,4 @@ class ListJeux : ObservableObject{
         self.jeux.removeAll()
         self.delegate?.listJeuxDeleted()
     }
-    func deleteJeu(at index: Int){
-        self.jeux.remove(at: index)
-        self.delegate?.jeuDeleted(at: index)
-    }
-    func moveJeux(from source: IndexSet, to destination: Int){
-        self.jeux.move(fromOffsets: source, toOffset: destination)
-        self.delegate?.jeuxMoved(from: source, to: destination)
-    }
 }
-

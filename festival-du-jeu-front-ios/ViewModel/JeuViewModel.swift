@@ -10,6 +10,8 @@ import SwiftUI
 
 class JeuViewModel :Identifiable{
     
+    var id = UUID()
+    
     @ObservedObject private(set) var model : Jeu
     
     var id_jeu : Int{
