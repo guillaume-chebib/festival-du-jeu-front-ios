@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D8D47FB260B1C2000B4DC67 /* Editeur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D47FA260B1C2000B4DC67 /* Editeur.swift */; };
 		B744D66B2609F06200A1276A /* Jeu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B744D66A2609F06200A1276A /* Jeu.swift */; };
 		B744D6702609F07E00A1276A /* JeuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B744D66F2609F07E00A1276A /* JeuViewModel.swift */; };
 		B744D6752609F0B500A1276A /* JeuIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B744D6742609F0B500A1276A /* JeuIntent.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D8D47FA260B1C2000B4DC67 /* Editeur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Editeur.swift; sourceTree = "<group>"; };
 		B744D66A2609F06200A1276A /* Jeu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jeu.swift; sourceTree = "<group>"; };
 		B744D66F2609F07E00A1276A /* JeuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuViewModel.swift; sourceTree = "<group>"; };
 		B744D6742609F0B500A1276A /* JeuIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuIntent.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 		B744D6692609EFF900A1276A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0D8D47FA260B1C2000B4DC67 /* Editeur.swift */,
 				B744D66A2609F06200A1276A /* Jeu.swift */,
 				C323EDCF2609F3600063FCE6 /* Zone.swift */,
 			);
@@ -315,6 +318,7 @@
 				B744D66B2609F06200A1276A /* Jeu.swift in Sources */,
 				B744D67A2609F0CA00A1276A /* JeuView.swift in Sources */,
 				C38ABDC425FA2EA1000DBD84 /* festival_du_jeu_front_iosApp.swift in Sources */,
+				0D8D47FB260B1C2000B4DC67 /* Editeur.swift in Sources */,
 				C323EDD52609F7490063FCE6 /* ZoneViewModel.swift in Sources */,
 				B744D6752609F0B500A1276A /* JeuIntent.swift in Sources */,
 			);
