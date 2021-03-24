@@ -10,27 +10,16 @@ import Foundation
 import SwiftUI
 
 struct FestivalData : Codable {
-    var id_festival:Int
-    var nom_festival:String
-    var annee_festival:Int
-    var est_courant_festival:Bool
+    public var id_festival:Int
+    public var nom_festival:String
+    public var annee_festival:Int
+    public var est_courant_festival:Bool
     
 }
-struct JeuData: Codable {
-    var id_jeu: Int
-    var titre_jeu: String
-    var min_joueur_jeu: Int
-    var max_joueur_jeu: Int?
-    var age_min_jeu: Int
-    var prototype_jeu: Bool
-    var id_type_jeu_jeu :Int
-    var id_editeur_jeu: Int
-    var url_jeu : String?
-}
+
 
 struct JeuxData: Codable {
-    var resultCount: Int
-    var results: [JeuData]
+    public var results: [JeuData]
 }
 enum HttpRequestError : Error, CustomStringConvertible{
     case fileNotFound(String)
@@ -59,18 +48,18 @@ enum HttpRequestError : Error, CustomStringConvertible{
 }
 
 
-struct LoadDataFromAPI {
+class LoadDataFromAPI {
     
-    @State var searchResult : [Jeu] = []
+    var searchResult : [Jeu] = []
         
         init(){
             self.searchResult = []
         }
     
-    func search(text : String){
-            let surl = "https://festival-du-jeu-api.herokuapp.com/festival/20/jeu"
+    func search(text : String) -> [Jeu]{
+            let surl = "https://festival-du-jeu-api.herokuapp.com/public/festival/20/jeu"
             print(surl)
-            guard let url = URL(string: surl) else { return }
+            guard let url = URL(string: surl) else { return []}
             let request = URLRequest(url: url)
             URLSession.shared.dataTask(with: request) {
                         data, // données retournées par la requête
@@ -84,9 +73,11 @@ struct LoadDataFromAPI {
                     fatalError("Failed to load file in bundle")
                 }
         
+            
+                
                 let decoder = JSONDecoder()
         
-                guard let loaded = try? decoder.decode(JeuxData.self,from: data) else{
+                guard let loaded = try? decoder.decode([JeuData].self,from: data) else{
                     fatalError("failed to decode file from bundle")
                 }
                 
@@ -97,14 +88,16 @@ struct LoadDataFromAPI {
                  // maintenant il faut mettre à jour les données du modèle
                  // mais ça doit se faire dans le thread principal si on veut que ce soit pris en compte par la vue et l'intent
                  DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
-                    for jeu in loaded.results {
-                        self.searchResult.append(Jeu(id: jeu.id_jeu, titre: jeu.titre_jeu, min: jeu.min_joueur_jeu, max: jeu.max_joueur_jeu, age: jeu.age_min_jeu, proto: jeu.prototype_jeu, url : jeu.url_jeu))
+                    for jeu in loaded {
+                        self.searchResult.append(Jeu(id: jeu.id_jeu, titre: jeu.titre_jeu, min: jeu.min_joueur_jeu, max: jeu.max_joueur_jeu, age: jeu.age_min_jeu, proto: jeu.proto_jeu, url : jeu.url_consignes_jeu))
+                        print(jeu)
                     }
                                      
                  }
                  return
 
             }.resume()
-            
+
+        return self.searchResult
         }
 }

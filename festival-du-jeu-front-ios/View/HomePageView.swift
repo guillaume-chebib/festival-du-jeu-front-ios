@@ -3,6 +3,9 @@
 import SwiftUI
 import Combine
 
+
+
+
 struct HomePageView: View {
     
     /*
@@ -29,13 +32,15 @@ struct HomePageView: View {
     
     @ObservedObject var searchListJeux : SearchListJeuxViewModel
     var intent : SearchListJeuxIntent
-    
     init(searchListJeux: SearchListJeuxViewModel){
         self.searchListJeux = searchListJeux
         self.intent = SearchListJeuxIntent(listJeux: searchListJeux)
         let _  = self.searchListJeux.$listJeuxState.sink(receiveValue: stateChanged)
+        //search(text: "a")
+        self.intent.loadListeJeux()
     }
-
+    
+    
 
     private var searchState : SearchListJeuxState{
         return self.searchListJeux.listJeuxState

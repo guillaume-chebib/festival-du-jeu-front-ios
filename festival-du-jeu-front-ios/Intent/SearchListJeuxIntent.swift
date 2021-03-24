@@ -9,7 +9,15 @@
 import Foundation
 import SwiftUI
 
-
+struct JeuData: Codable {
+    public var id_jeu: Int
+    public var titre_jeu: String
+    public var min_joueur_jeu: Int
+    public var max_joueur_jeu: Int?
+    public var age_min_jeu: Int
+    public var proto_jeu: Bool
+    public var url_consignes_jeu : String?
+}
 
 class SearchListJeuxIntent{
     
@@ -39,10 +47,13 @@ class SearchListJeuxIntent{
     }
 
     func loadListeJeux() {
-        var adresse = ""
-        //self.listJeux.listJeuxState = .loading(url)
+        var adresse = "https://festival-du-jeu-api.herokuapp.com/public/festival/20/jeu"
+        self.listJeux.listJeuxState = .loading(adresse)
         //call API with httJson Loaded
-        
+        var loaddata = LoadDataFromAPI()
+        var jeux = loaddata.search(text: "a")
+        print(jeux)
+        self.listJeux.listJeuxState = .loaded(jeux)
     }
     
 }
