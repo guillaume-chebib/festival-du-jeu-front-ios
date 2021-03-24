@@ -9,16 +9,7 @@ struct MainView: View {
     @State private var tabSelected  = 0
     
     var body: some View {
-        TabView(selection: $tabSelected){
-            HomePageView(searchListJeux: listJeux)
-                .tabItem{
-                    Text("Recherche")
-                }.tag(0)
-//            PersonalPlayListView(personalPlaylist: personalPlaylist)
-//                .tabItem{
-//                    Label("Playlist", systemImage: "list.dash")
-//                }.tag(0)
-        }
+        HomePageView(searchListJeux: listJeux)
     }
 }
 
