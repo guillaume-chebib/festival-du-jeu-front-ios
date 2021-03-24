@@ -11,7 +11,7 @@ import SwiftUI
 struct festival_du_jeu_front_iosApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
         }
     }
 }

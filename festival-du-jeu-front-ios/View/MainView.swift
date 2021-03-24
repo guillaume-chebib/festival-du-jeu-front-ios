@@ -6,14 +6,14 @@ struct MainView: View {
     @StateObject var listJeux : SearchListJeuxViewModel   = SearchListJeuxViewModel(ListJeux())
 
     /// which tab appear selected
-    @State private var tabSelected  = 1
+    @State private var tabSelected  = 0
     
     var body: some View {
         TabView(selection: $tabSelected){
             HomePageView(searchListJeux: listJeux)
                 .tabItem{
                     Label("Search", systemImage: "rectangle.and.text.magnifyingglass")
-                }.tag(1)
+                }.tag(0)
 //            PersonalPlayListView(personalPlaylist: personalPlaylist)
 //                .tabItem{
 //                    Label("Playlist", systemImage: "list.dash")

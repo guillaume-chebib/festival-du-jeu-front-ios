@@ -32,7 +32,7 @@ struct HomePageView: View {
     
     init(searchListJeux: SearchListJeuxViewModel){
         self.searchListJeux = searchListJeux
-        self.intent = SearchListJeuxIntent(list: searchListJeux)
+        self.intent = SearchListJeuxIntent(listJeux: searchListJeux)
         let _  = self.searchListJeux.$listJeuxState.sink(receiveValue: stateChanged)
     }
 
