@@ -37,6 +37,7 @@ class SearchListJeuxIntent{
         self.listJeux.listJeuxState = .ready
                 
     }
+    
 
     func loadListeJeux() {
         var adresse = ""
