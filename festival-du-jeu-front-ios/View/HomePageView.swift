@@ -1,14 +1,9 @@
-//
-//
-//  Created by Groupe 7 on 23/03/2021.
-//
+
 
 import SwiftUI
 import Combine
 
 struct HomePageView: View {
-    
-    @EnvironmentObject var liste : listeJeuViewModel
     
     /*
      * If searchPlaylist is initialized here, we must ensure that intent initialized here stays the same with the initial playlist
@@ -32,18 +27,18 @@ struct HomePageView: View {
     }
      */
     
-//    @ObservedObject var searchPlaylist : SearchPlaylistViewModel
-//    var intent : SearchListViewIntent
+    @ObservedObject var searchListJeux : SearchListJeuxViewModel
+    var intent : SearchListJeuxIntent
     
-    init(searchPlaylist: SearchPlaylistViewModel){
-        self.searchPlaylist = searchPlaylist
-        self.intent = SearchListViewIntent(playlist: searchPlaylist)
-        let _  = self.searchPlaylist.$playListState.sink(receiveValue: stateChanged)
+    init(searchListJeux: SearchListJeuxViewModel){
+        self.searchListJeux = searchListJeux
+        self.intent = SearchListJeuxIntent(list: searchListJeux)
+        let _  = self.searchListJeux.$listJeuxState.sink(receiveValue: stateChanged)
     }
 
 
-    private var searchState : SearchPlayListState{
-        return self.searchPlaylist.playListState
+    private var searchState : SearchListJeuxState{
+        return self.searchListJeux.listJeuxState
     }
     
     @State private var showModal      = false
@@ -55,31 +50,31 @@ struct HomePageView: View {
     @State var dumbPresented : Bool = true
     
     
-    var tracks : [TrackViewModel] {
-        return self.searchPlaylist.tracks
+    var jeux : [JeuViewModel] {
+        return self.searchListJeux.jeux
     }
     
-    private func filterSearch(track: TrackViewModel) -> Bool{
-        var ret = true
-        if !textSearch.isEmpty {
-            ret = false
-            if let name = track.name{
-                ret = ret || name.contains(textSearch)
-            }
-            ret = ret || track.album.contains(textSearch)
-            ret = ret || track.artist.contains(textSearch)
-        }
-        return ret
-    }
-    
-    func stateChanged(state: SearchPlayListState){
+//    private func filterSearch(jeu: JeuViewModel) -> Bool{
+//        var ret = true
+//        if !textSearch.isEmpty {
+//            ret = false
+//            if let name = jeu.titre_jeu{
+//                ret = ret || name.contains(textSearch)
+//            }
+//            ret = ret || jeu.album.contains(textSearch)
+//            ret = ret || track.artist.contains(textSearch)
+//        }
+//        return ret
+//    }
+//
+    func stateChanged(state: SearchListJeuxState){
         #if DEBUG
-        debugPrint("SearchListView -> searchList state : \(state)")
-        debugPrint("SearchListView -> formViewOpen=\(searchPlaylist.formViewOpen)")
+        debugPrint("HomePageView -> searchList state : \(state)")
+        debugPrint("HomePageView -> formViewOpen=\(searchListJeux.formViewOpen)")
         #endif
         switch state {
-        case .newTracks:
-            self.intent.trackLoaded()
+        case .newJeux:
+            self.intent.jeuLoaded()
         default:
             break
         }
@@ -89,36 +84,10 @@ struct HomePageView: View {
 //        stateChanged(state: searchPlaylist.playListState)
         return NavigationView{
             VStack{
-                TextField("term filter", text: $textSearch).font(.footnote)
+                Text("Bienvenue sur l'app du fetival du jeu")
                 Spacer()
-                ZStack{
-                    List{
-                        ForEach(self.searchPlaylist.tracks.filter(filterSearch)){ track in
-                            NavigationLink(destination: SearchPlaylistTrackDetailView(playlist: personalPlaylist, trackViewed: track)){
-                                ListRow(track: track)
-                            }
-                        }
-                    }
-                    if tracks.count == 0{
-                        VStack{
-                            Spacer()
-                            Text("No tracks")
-                            Spacer()
-                        }
-                    }
-                    ErrorView(state: searchState)
-                }
-                VStack{
-                    DisclosureGroup("Search form", isExpanded: $searchPlaylist.formViewOpen){
-                        VStack{
-                            SearchFormDisclosureView(intent: self.intent)
-                        }
-                    }
-                }
-                .padding(10)
-                .background(Color.backgroundForm)
             }
-            .navigationTitle("Search list tracks")
+            .navigationTitle("Accueil")
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
@@ -126,66 +95,65 @@ struct HomePageView: View {
 
 struct SearchListView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchListView(searchPlaylist: SearchPlaylistViewModel(Playlist()))
+        HomePageView(searchListJeux: SearchListJeuxViewModel(ListJeux()))
     }
 }
 
 struct ListRow : View{
-    let track : TrackViewModel
+    let jeu : JeuViewModel
     var body: some View{
         HStack{
-            track.image.smallSquare()
             VStack(alignment: .leading){
-                if let name = track.name { Text(name).font(.title2) }
-                Text(track.album)
+                //if let name = jeu.titre_jeu { Text(name).font(.title2) }
+                Text(jeu.titre_jeu)
                     .font(.headline)
-                Text(track.artist)
+                
             }
         }
     }
 }
 
-struct ErrorView : View{
-    let state : SearchPlayListState
-    var body: some View{
-        VStack{
-            Spacer()
-            switch state{
-            case .loading, .loaded:
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                    .scaleEffect(3)
-            case .loadingError(let error):
-                ErrorMessage(error: error)
-            default:
-                EmptyView()
-            }
-            if case let .loaded(data) = state{
-                Text("\(data.count) tracks found!")
-            }
-            Spacer()
-        }
-    }
-}
-
-
-
-
-struct ErrorMessage : View{
-    let error :  Error
-    var body: some View{
-        VStack{
-            Text("Error in search request")
-                .errorStyle()
-            if let error = error  as? HttpRequestError {
-                Text("\(error.description)")
-                    .noteStyle()
-            }
-            else{
-                Text("Unknown error")
-                    .errorStyle()
-            }
-        }
-    }
-}
+//struct ErrorView : View{
+//    let state : SearchListJeuxState
+//    var body: some View{
+//        VStack{
+//            Spacer()
+//            switch state{
+//            case .loading, .loaded:
+//                ProgressView()
+//                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+//                    .scaleEffect(3)
+//            case .loadingError(let error):
+//                ErrorMessage(error: error)
+//            default:
+//                EmptyView()
+//            }
+//            if case let .loaded(data) = state{
+//                Text("\(data.count) jeux trouvés!")
+//            }
+//            Spacer()
+//        }
+//    }
+//}
+//
+//
+//
+//
+//struct ErrorMessage : View{
+//    let error :  Error
+//    var body: some View{
+//        VStack{
+//            Text("Error in search request")
+//                .errorStyle()
+//            if let error = error  as? HttpRequestError {
+//                Text("\(error.description)")
+//                    .noteStyle()
+//            }
+//            else{
+//                Text("Unknown error")
+//                    .errorStyle()
+//            }
+//        }
+//    }
+//}
 

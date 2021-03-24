@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D8A881C260B2219003E5AC0 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8A881B260B2219003E5AC0 /* HomePageView.swift */; };
+		0D8A8822260B241C003E5AC0 /* SearchListJeuxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8A8821260B241C003E5AC0 /* SearchListJeuxViewModel.swift */; };
+		0D8A882A260B27A8003E5AC0 /* ListJeux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8A8829260B27A8003E5AC0 /* ListJeux.swift */; };
+		0D8A882F260B33BD003E5AC0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8A882E260B33BD003E5AC0 /* MainView.swift */; };
 		0D8D47FB260B1C2000B4DC67 /* Editeur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D47FA260B1C2000B4DC67 /* Editeur.swift */; };
 		B744D66B2609F06200A1276A /* Jeu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B744D66A2609F06200A1276A /* Jeu.swift */; };
 		B744D6702609F07E00A1276A /* JeuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B744D66F2609F07E00A1276A /* JeuViewModel.swift */; };
@@ -40,6 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D8A881B260B2219003E5AC0 /* HomePageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
+		0D8A8821260B241C003E5AC0 /* SearchListJeuxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListJeuxViewModel.swift; sourceTree = "<group>"; };
+		0D8A8829260B27A8003E5AC0 /* ListJeux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListJeux.swift; sourceTree = "<group>"; };
+		0D8A882E260B33BD003E5AC0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0D8D47FA260B1C2000B4DC67 /* Editeur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Editeur.swift; sourceTree = "<group>"; };
 		B744D66A2609F06200A1276A /* Jeu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jeu.swift; sourceTree = "<group>"; };
 		B744D66F2609F07E00A1276A /* JeuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuViewModel.swift; sourceTree = "<group>"; };
@@ -89,7 +97,9 @@
 		B744D6662609EFD500A1276A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0D8A881B260B2219003E5AC0 /* HomePageView.swift */,
 				B744D6792609F0CA00A1276A /* JeuView.swift */,
+				0D8A882E260B33BD003E5AC0 /* MainView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -107,6 +117,7 @@
 			children = (
 				B744D66F2609F07E00A1276A /* JeuViewModel.swift */,
 				C323EDD42609F7490063FCE6 /* ZoneViewModel.swift */,
+				0D8A8821260B241C003E5AC0 /* SearchListJeuxViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -117,6 +128,7 @@
 				0D8D47FA260B1C2000B4DC67 /* Editeur.swift */,
 				B744D66A2609F06200A1276A /* Jeu.swift */,
 				C323EDCF2609F3600063FCE6 /* Zone.swift */,
+				0D8A8829260B27A8003E5AC0 /* ListJeux.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -313,12 +325,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				C38ABDC625FA2EA1000DBD84 /* ContentView.swift in Sources */,
+				0D8A882F260B33BD003E5AC0 /* MainView.swift in Sources */,
 				B744D6702609F07E00A1276A /* JeuViewModel.swift in Sources */,
 				C323EDD02609F3600063FCE6 /* Zone.swift in Sources */,
 				B744D66B2609F06200A1276A /* Jeu.swift in Sources */,
+				0D8A881C260B2219003E5AC0 /* HomePageView.swift in Sources */,
 				B744D67A2609F0CA00A1276A /* JeuView.swift in Sources */,
 				C38ABDC425FA2EA1000DBD84 /* festival_du_jeu_front_iosApp.swift in Sources */,
+				0D8A8822260B241C003E5AC0 /* SearchListJeuxViewModel.swift in Sources */,
 				0D8D47FB260B1C2000B4DC67 /* Editeur.swift in Sources */,
+				0D8A882A260B27A8003E5AC0 /* ListJeux.swift in Sources */,
 				C323EDD52609F7490063FCE6 /* ZoneViewModel.swift in Sources */,
 				B744D6752609F0B500A1276A /* JeuIntent.swift in Sources */,
 			);

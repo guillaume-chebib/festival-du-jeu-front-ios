@@ -34,8 +34,8 @@ class JeuViewModel :Identifiable{
         return model.url_consignes_jeu
     }
     
-    init(jeu:Jeu) {
-        self.model=jeu
+    init(_ jeu: Jeu){
+        self.model = jeu
     }
 
     
