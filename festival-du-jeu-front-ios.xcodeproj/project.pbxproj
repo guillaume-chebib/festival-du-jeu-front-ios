@@ -14,6 +14,8 @@
 		B744D67A2609F0CA00A1276A /* JeuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B744D6792609F0CA00A1276A /* JeuView.swift */; };
 		C323EDD02609F3600063FCE6 /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = C323EDCF2609F3600063FCE6 /* Zone.swift */; };
 		C323EDD52609F7490063FCE6 /* ZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C323EDD42609F7490063FCE6 /* ZoneViewModel.swift */; };
+		C33E8E70260B254F0007CF53 /* SearchListeJeuxIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33E8E6F260B254F0007CF53 /* SearchListeJeuxIntent.swift */; };
+		C33E8E76260B2D530007CF53 /* LoadDataFromApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33E8E75260B2D530007CF53 /* LoadDataFromApi.swift */; };
 		C38ABDC425FA2EA1000DBD84 /* festival_du_jeu_front_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABDC325FA2EA1000DBD84 /* festival_du_jeu_front_iosApp.swift */; };
 		C38ABDC625FA2EA1000DBD84 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38ABDC525FA2EA1000DBD84 /* ContentView.swift */; };
 		C38ABDC825FA2EA4000DBD84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C38ABDC725FA2EA4000DBD84 /* Assets.xcassets */; };
@@ -47,6 +49,8 @@
 		B744D6792609F0CA00A1276A /* JeuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuView.swift; sourceTree = "<group>"; };
 		C323EDCF2609F3600063FCE6 /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
 		C323EDD42609F7490063FCE6 /* ZoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneViewModel.swift; sourceTree = "<group>"; };
+		C33E8E6F260B254F0007CF53 /* SearchListeJeuxIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListeJeuxIntent.swift; sourceTree = "<group>"; };
+		C33E8E75260B2D530007CF53 /* LoadDataFromApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadDataFromApi.swift; sourceTree = "<group>"; };
 		C38ABDC025FA2EA1000DBD84 /* festival-du-jeu-front-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "festival-du-jeu-front-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C38ABDC325FA2EA1000DBD84 /* festival_du_jeu_front_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = festival_du_jeu_front_iosApp.swift; sourceTree = "<group>"; };
 		C38ABDC525FA2EA1000DBD84 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -98,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				B744D6742609F0B500A1276A /* JeuIntent.swift */,
+				C33E8E6F260B254F0007CF53 /* SearchListeJeuxIntent.swift */,
 			);
 			path = Intent;
 			sourceTree = "<group>";
@@ -119,6 +124,14 @@
 				C323EDCF2609F3600063FCE6 /* Zone.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C33E8E74260B2D310007CF53 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				C33E8E75260B2D530007CF53 /* LoadDataFromApi.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		C38ABDB725FA2EA1000DBD84 = {
@@ -144,6 +157,7 @@
 		C38ABDC225FA2EA1000DBD84 /* festival-du-jeu-front-ios */ = {
 			isa = PBXGroup;
 			children = (
+				C33E8E74260B2D310007CF53 /* Helper */,
 				B744D6692609EFF900A1276A /* Model */,
 				B744D6682609EFEC00A1276A /* ViewModel */,
 				B744D6672609EFDE00A1276A /* Intent */,
@@ -312,6 +326,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C33E8E76260B2D530007CF53 /* LoadDataFromApi.swift in Sources */,
 				C38ABDC625FA2EA1000DBD84 /* ContentView.swift in Sources */,
 				B744D6702609F07E00A1276A /* JeuViewModel.swift in Sources */,
 				C323EDD02609F3600063FCE6 /* Zone.swift in Sources */,
@@ -320,6 +335,7 @@
 				C38ABDC425FA2EA1000DBD84 /* festival_du_jeu_front_iosApp.swift in Sources */,
 				0D8D47FB260B1C2000B4DC67 /* Editeur.swift in Sources */,
 				C323EDD52609F7490063FCE6 /* ZoneViewModel.swift in Sources */,
+				C33E8E70260B254F0007CF53 /* SearchListeJeuxIntent.swift in Sources */,
 				B744D6752609F0B500A1276A /* JeuIntent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
