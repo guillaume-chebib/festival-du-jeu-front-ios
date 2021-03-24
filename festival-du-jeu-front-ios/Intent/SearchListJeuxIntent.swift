@@ -33,7 +33,7 @@ class SearchListJeuxIntent{
     
     
     
-    func jeuLoaded(){
+    func jeuxLoaded(){
         self.listJeux.listJeuxState = .ready
                 
     }
@@ -47,9 +47,7 @@ class SearchListJeuxIntent{
             
             listJeux.listJeuxState = .loaded(data)
         
-            for jeu in data{
-                print(data)
-            }
+            
             
         case let .failure(error):
             listJeux.listJeuxState = .loadingError(error)
@@ -61,7 +59,7 @@ class SearchListJeuxIntent{
         self.listJeux.listJeuxState = .loading(adresse)
         //call API with httJson Loaded
         LoadDataFromAPI.loadTracksFromAPI(url: adresse,endofrequest: httpJsonLoaded)
-                
+
     }
     
 }

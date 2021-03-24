@@ -13,7 +13,7 @@ import Combine
 // id devient calculé en fonction si song ou album
 // init album et init song
 
-class Jeu : Identifiable, ObservableObject, Encodable, Equatable{
+class Jeu : Identifiable, ObservableObject, Encodable, Equatable, CustomStringConvertible{
     static func == (lhs: Jeu, rhs: Jeu) -> Bool {
         return lhs.id == rhs.id
     }
@@ -36,4 +36,9 @@ class Jeu : Identifiable, ObservableObject, Encodable, Equatable{
         self.proto_jeu = proto
         self.url_consignes_jeu = url
     }
+    
+    
+    public var description: String {
+            return "id=\(id_jeu), titre=\(titre_jeu)"
+        }
 }

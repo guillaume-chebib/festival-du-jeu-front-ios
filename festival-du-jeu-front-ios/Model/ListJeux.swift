@@ -21,6 +21,7 @@ class ListJeux : ObservableObject{
     }
     func new(jeux: [Jeu]){
         self.jeux = jeux
+        print(jeux[0])
         self.delegate?.newListJeux()
     }
     func add(jeux: [Jeu]){

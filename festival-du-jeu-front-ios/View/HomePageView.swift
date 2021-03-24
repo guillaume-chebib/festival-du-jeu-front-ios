@@ -16,8 +16,20 @@ struct HomePageView: View {
         if case .ready = self.searchListJeux.listJeuxState {
         self.intent.loadListeJeux()
         }
+        if case .newJeux = self.searchListJeux.listJeuxState{
+            /*let _  = self.searchListJeux.$listJeuxState.sink(receiveValue: stateChanged)*/
+        }
     }
     
+    func stateChanged(state: SearchListJeuxState){
+        
+        switch state {
+        case .newJeux:
+            self.intent.jeuxLoaded()
+        default:
+            break
+        }
+    }
     
 
     private var searchState : SearchListJeuxState{
@@ -97,7 +109,7 @@ struct ListRow : View{
     var body: some View{
         HStack{
             VStack(alignment: .leading){
-                Text(jeu.titre_jeu)
+                Text("\(jeu.titre_jeu) \(jeu.id_jeu)")
                     .font(.headline)
             }
         }

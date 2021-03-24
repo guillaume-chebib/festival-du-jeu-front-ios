@@ -14,20 +14,52 @@ enum SearchListJeuxState : CustomStringConvertible{
     case loading(String)
     case loaded([Jeu])
     case loadingError(Error)
-    
+    case newJeux([JeuViewModel])
+
     var description: String{
         switch self {
         case .ready                               : return "ready"
         case .loading(let s)                      : return "loading: \(s)"
         case .loaded(let jeu)                  : return "loaded: \(jeu.count) jeux"
         case .loadingError(let error)             : return "loadingError: Error loading -> \(error)"
+        case .newJeux(let jeux)               : return "newTracks: reset playlist with \(jeux.count) tracks"
+
         }
     }
     
 }
 
 
-class SearchListJeuxViewModel: ObservableObject{
+class SearchListJeuxViewModel: ObservableObject, ListJeuxDelegate{
+    
+    func listJeuxModified(jeu: Jeu, index: Int) {
+        
+    }
+    
+    func newListJeux() {
+        self.jeux.removeAll()
+        for jeu in self.model.jeux{
+            self.jeux.append(JeuViewModel(jeu))
+        }
+        #if DEBUG
+        debugPrint("SearchPlvm: playListState = .newTracks")
+        #endif
+        self.listJeuxState = .newJeux(self.jeux)
+        
+    }
+    
+    func listJeuxAdded(jeux: [Jeu]) {
+        
+    }
+    
+    func listJeuxDeleted() {
+        
+    }
+    
+    func jeuDeleted(at: Int) {
+        
+    }
+    
     
     /// Playlist model of ViewModel
     private(set) var model: ListJeux
@@ -65,6 +97,7 @@ class SearchListJeuxViewModel: ObservableObject{
     /// - Parameter playlist: playlist model to be the ViewModel
     init(_ listJeux: ListJeux){
         self.model = listJeux
+        self.model.delegate = self
     }
     
     /// new list of tracks for the playlist
