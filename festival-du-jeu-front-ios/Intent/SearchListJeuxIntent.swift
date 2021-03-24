@@ -31,30 +31,37 @@ class SearchListJeuxIntent{
         self.listJeux.listJeuxState = .ready
     }
     
-    func httpJsonLoaded(result: Result<[Jeu],HttpRequestError>){
-        switch result {
-        case let .success(data):
-            listJeux.listJeuxState = .loaded(data)
-        case let .failure(error):
-            listJeux.listJeuxState = .loadingError(error)
-        }
-        
-    }
+    
     
     func jeuLoaded(){
         self.listJeux.listJeuxState = .ready
                 
     }
     
-
+    func httpJsonLoaded(result: Result<[Jeu],HttpRequestError>){
+        switch result {
+        case let .success(data):
+            #if DEBUG
+            debugPrint("SearchIntent: httpJsonLoaded -> success -> .loaded(tracks)")
+            #endif
+            
+            listJeux.listJeuxState = .loaded(data)
+        
+            for jeu in data{
+                print(data)
+            }
+            
+        case let .failure(error):
+            listJeux.listJeuxState = .loadingError(error)
+        }
+    }
+    
     func loadListeJeux() {
         var adresse = "https://festival-du-jeu-api.herokuapp.com/public/festival/20/jeu"
         self.listJeux.listJeuxState = .loading(adresse)
         //call API with httJson Loaded
-        var loaddata = LoadDataFromAPI()
-        var jeux = loaddata.search(text: "a")
-        print(jeux)
-        self.listJeux.listJeuxState = .loaded(jeux)
+        LoadDataFromAPI.loadTracksFromAPI(url: adresse,endofrequest: httpJsonLoaded)
+                
     }
     
 }

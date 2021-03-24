@@ -56,48 +56,74 @@ class LoadDataFromAPI {
             self.searchResult = []
         }
     
-    func search(text : String) -> [Jeu]{
-            let surl = "https://festival-du-jeu-api.herokuapp.com/public/festival/20/jeu"
-            print(surl)
-            guard let url = URL(string: surl) else { return []}
-            let request = URLRequest(url: url)
-            URLSession.shared.dataTask(with: request) {
-                        data, // données retournées par la requête
-                        response, // description des données - combien de données, le type, etc...
-                        error // code d'erreur ?
-                        in // closure -- lambda expression -- exécuté au retour de la requête
-
-                 // à partir de là vous pouvez procéder comme avec la lecture dans un fichier, data étant les données que vous auriez récupérées depuis le fichier
-                
-                guard let data = try? Data(contentsOf: url) else {
-                    fatalError("Failed to load file in bundle")
-                }
-        
+    static func trackData2Track(data: [JeuData]) -> [Jeu]?{
+        var tracks = [Jeu]()
+        for tdata in data{
             
-                
-                let decoder = JSONDecoder()
-        
-                guard let loaded = try? decoder.decode([JeuData].self,from: data) else{
-                    fatalError("failed to decode file from bundle")
-                }
-                
-                 // on vérifie qu'on a bien des données
-                 // on crée un décodeur
-                 // on décode
-
-                 // maintenant il faut mettre à jour les données du modèle
-                 // mais ça doit se faire dans le thread principal si on veut que ce soit pris en compte par la vue et l'intent
-                 DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
-                    for jeu in loaded {
-                        self.searchResult.append(Jeu(id: jeu.id_jeu, titre: jeu.titre_jeu, min: jeu.min_joueur_jeu, max: jeu.max_joueur_jeu, age: jeu.age_min_jeu, proto: jeu.proto_jeu, url : jeu.url_consignes_jeu))
-                        print(jeu)
-                    }
-                                     
-                 }
-                 return
-
-            }.resume()
-
-        return self.searchResult
+            
+            let track = Jeu(id: tdata.id_jeu, titre: tdata.titre_jeu, min: tdata.min_joueur_jeu, max: tdata.max_joueur_jeu, age: tdata.age_min_jeu, proto: tdata.proto_jeu, url: tdata.url_consignes_jeu)
+            tracks.append(track)
         }
+        return tracks
+    }
+    
+    static func loadTracksFromAPI(url surl: String, endofrequest: @escaping (Result<[Jeu],HttpRequestError>) -> Void){
+        guard let url = URL(string: surl) else {
+            endofrequest(.failure(.badURL(surl)))
+            return
+        }
+        self.loadTracksFromAPI(url: url, endofrequest: endofrequest)
+    }
+    static func loadTracksFromAPI(url: URL, endofrequest: @escaping (Result<[Jeu],HttpRequestError>) -> Void){
+        self.search(url: url, endofrequest: endofrequest)
+    }
+    static func search(url: URL, endofrequest: @escaping (Result<[Jeu],HttpRequestError>) -> Void){
+        let request = URLRequest(url: url)
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                let decodedData : Decodable?
+                
+                
+                    decodedData = try? JSONDecoder().decode([JeuData].self, from: data)
+                
+                guard let decodedResponse = decodedData else {
+                    DispatchQueue.main.async { endofrequest(.failure(.JsonDecodingFailed)) }
+                    return
+                }
+                var tracksData : [JeuData]
+                
+                    tracksData = (decodedResponse as! [JeuData])
+                
+                guard let tracks = self.trackData2Track(data: tracksData) else{
+                    DispatchQueue.main.async { endofrequest(.failure(.JsonDecodingFailed)) }
+                    return
+                }
+                DispatchQueue.main.async {
+                    endofrequest(.success(tracks))
+                }
+            }
+            else{
+                DispatchQueue.main.async {
+                    if let error = error {
+                        guard let error = error as? URLError else {
+                            endofrequest(.failure(.unknown))
+                            return
+                        }
+                        endofrequest(.failure(.failingURL(error)))
+                    }
+                    else{
+                        guard let response = response as? HTTPURLResponse else{
+                            endofrequest(.failure(.unknown))
+                            return
+                        }
+                        guard response.statusCode == 200 else {
+                            endofrequest(.failure(.requestFailed))
+                            return
+                        }
+                        endofrequest(.failure(.unknown))
+                    }
+                }
+            }
+        }.resume()
+    }
 }

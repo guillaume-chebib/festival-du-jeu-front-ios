@@ -13,6 +13,9 @@ struct HomePageView: View {
     init(searchListJeux: SearchListJeuxViewModel){
         self.searchListJeux = searchListJeux
         self.intent = SearchListJeuxIntent(listJeux: searchListJeux)
+        if case .ready = self.searchListJeux.listJeuxState {
+        self.intent.loadListeJeux()
+        }
     }
     
     
