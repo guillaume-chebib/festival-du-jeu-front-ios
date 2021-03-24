@@ -11,36 +11,36 @@ import SwiftUI
 
 
 
-class SearchListeJeuxIntent{
+class SearchListJeuxIntent{
     
-    //@ObservedObject var listeJeux : SearchListeJeuxViewModel
+    @ObservedObject var listJeux : SearchListJeuxViewModel
     
-    /*init(listeJeux: SearchListeJeuxViewModel){
-        self.listeJeux = listeJeux
-    }*/
+    init(listJeux: SearchListJeuxViewModel){
+        self.listJeux = listJeux
+    }
     
     func loaded(jeux:[Jeu]){
-        self.listeJeux.State = .ready
+        self.listJeux.listJeuxState = .ready
     }
     
     func httpJsonLoaded(result: Result<[Jeu],HttpRequestError>){
         switch result {
         case let .success(data):
-                listeJeux.State = .loaded(data)
+            listJeux.listJeuxState = .loaded(data)
         case let .failure(error):
-           listeJeux.State = .loadingError(error)
+            listJeux.listJeuxState = .loadingError(error)
         }
         
     }
     
     func jeuLoaded(){
-        self.listeJeux.State = .ready
+        self.listJeux.listJeuxState = .ready
                 
     }
 
     func loadListeJeux() {
-        var adresse - ""
-        self.listeJeux.State = .loading(url)
+        var adresse = ""
+        //self.listJeux.listJeuxState = .loading(url)
         //call API with httJson Loaded
         
     }
