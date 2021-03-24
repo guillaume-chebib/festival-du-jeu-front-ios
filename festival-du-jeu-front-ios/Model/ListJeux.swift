@@ -1,10 +1,3 @@
-//
-//  ListJeux.swift
-//  festival-du-jeu-front-ios
-//
-//  Created by etud on 24/03/2021.
-//
-
 import Foundation
 
 protocol ListJeuxDelegate {
