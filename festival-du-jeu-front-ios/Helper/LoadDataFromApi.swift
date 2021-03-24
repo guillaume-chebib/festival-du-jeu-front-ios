@@ -5,7 +5,9 @@
 //  Created by user190184 on 24/03/2021.
 //
 
+
 import Foundation
+import SwiftUI
 
 struct FestivalData : Codable {
     var id_festival:Int
@@ -17,8 +19,8 @@ struct FestivalData : Codable {
 struct JeuData: Codable {
     var id_jeu: Int
     var titre_jeu: String
-    var min_joueur_jeu: String
-    var max_joueur_jeu: String?
+    var min_joueur_jeu: Int
+    var max_joueur_jeu: Int?
     var age_min_jeu: Int
     var prototype_jeu: Bool
     var id_type_jeu_jeu :Int
@@ -59,68 +61,50 @@ enum HttpRequestError : Error, CustomStringConvertible{
 
 struct LoadDataFromAPI {
     
-    static func loadJeuxFromAPI(url surl: String, endofrequest: @escaping (Result<[Jeu],HttpRequestError>) -> Void){
-        guard let url = URL(string: surl) else {
-            endofrequest(.failure(.badURL(surl)))
-            return
+    @State var searchResult : [Jeu] = []
+        
+        init(){
+            self.searchResult = []
         }
-        self.loadJeuxFromAPI(url: url, endofrequest: endofrequest)
-    }
-    static func loadJeuxFromAPI(url: URL, endofrequest: @escaping (Result<[Jeu],HttpRequestError>) -> Void){
-        self.loadJeuxFromJsonData(url: url, endofrequest: endofrequest, ItuneApiRequest: true)
-    }
+    
+    func search(text : String){
+            let surl = "https://festival-du-jeu-api.herokuapp.com/festival/20/jeu"
+            print(surl)
+            guard let url = URL(string: surl) else { return }
+            let request = URLRequest(url: url)
+            URLSession.shared.dataTask(with: request) {
+                        data, // données retournées par la requête
+                        response, // description des données - combien de données, le type, etc...
+                        error // code d'erreur ?
+                        in // closure -- lambda expression -- exécuté au retour de la requête
 
-    private static func loadJeuxFromJsonData(url: URL, endofrequest: @escaping (Result<[Jeu],HttpRequestError>) -> Void, ItuneApiRequest: Bool = true){
-        let request = URLRequest(url: url)
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                let decodedData : Decodable?
-                if ItuneApiRequest{
-                    decodedData = try? JSONDecoder().decode(JeuData.self, from: data)
+                 // à partir de là vous pouvez procéder comme avec la lecture dans un fichier, data étant les données que vous auriez récupérées depuis le fichier
+                
+                guard let data = try? Data(contentsOf: url) else {
+                    fatalError("Failed to load file in bundle")
                 }
-                else{
-                    decodedData = try? JSONDecoder().decode([JeuData].self, from: data)
+        
+                let decoder = JSONDecoder()
+        
+                guard let loaded = try? decoder.decode(JeuxData.self,from: data) else{
+                    fatalError("failed to decode file from bundle")
                 }
-                guard let decodedResponse = decodedData else {
-                    DispatchQueue.main.async { endofrequest(.failure(.JsonDecodingFailed)) }
-                    return
-                }
-                var tracksData : [JeuData]
-                if ItuneApiRequest{
-                    tracksData = (decodedResponse as! JeuData).results
-                }
-                else{
-                    tracksData = (decodedResponse as! [TrackData])
-                }
-                guard let tracks = self.trackData2Track(data: tracksData) else{
-                    DispatchQueue.main.async { endofrequest(.failure(.JsonDecodingFailed)) }
-                    return
-                }
-                DispatchQueue.main.async {
-                    endofrequest(.success(tracks))
-                }
-            }
-            else{
-                DispatchQueue.main.async {
-                    if let error = error {
-                        guard let error = error as? URLError else {
-                            endofrequest(.failure(.unknown))
-                            return
-                        }
-                        endofrequest(.failure(.failingURL(error)))
+                
+                 // on vérifie qu'on a bien des données
+                 // on crée un décodeur
+                 // on décode
+
+                 // maintenant il faut mettre à jour les données du modèle
+                 // mais ça doit se faire dans le thread principal si on veut que ce soit pris en compte par la vue et l'intent
+                 DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                    for jeu in loaded.results {
+                        self.searchResult.append(Jeu(id: jeu.id_jeu, titre: jeu.titre_jeu, min: jeu.min_joueur_jeu, max: jeu.max_joueur_jeu, age: jeu.age_min_jeu, proto: jeu.prototype_jeu, url : jeu.url_jeu))
                     }
-                    else{
-                        guard let response = response as? HTTPURLResponse else{
-                            endofrequest(.failure(.unknown))
-                            return
-                        }
-                        guard response.statusCode == 200 else {
-                            endofrequest(.failure(.requestFailed))
-                            return
-                        }
-                        endofrequest(.failure(.unknown))
-                    }
-                }
-            }
-        }.resume()
-    }}
+                                     
+                 }
+                 return
+
+            }.resume()
+            
+        }
+}
