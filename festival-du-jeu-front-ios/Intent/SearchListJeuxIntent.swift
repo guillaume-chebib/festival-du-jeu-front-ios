@@ -55,7 +55,7 @@ class SearchListJeuxIntent{
     }
     
     func loadListeJeux() {
-        var adresse = "https://festival-du-jeu-api.herokuapp.com/public/festival/20/jeu"
+        var adresse = "https://festival-du-jeu-api.herokuapp.com/public/festival/jeu"
         self.listJeux.listJeuxState = .loading(adresse)
         //call API with httJson Loaded
         LoadDataFromAPI.loadTracksFromAPI(url: adresse,endofrequest: httpJsonLoaded)

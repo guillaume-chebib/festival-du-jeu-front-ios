@@ -13,6 +13,7 @@ struct HomePageView: View {
     init(searchListJeux: SearchListJeuxViewModel){
         self.searchListJeux = searchListJeux
         self.intent = SearchListJeuxIntent(listJeux: searchListJeux)
+        print("nouvelle vue")
         if case .ready = self.searchListJeux.listJeuxState {
         self.intent.loadListeJeux()
         }
@@ -79,7 +80,9 @@ struct HomePageView: View {
                 ZStack{
                     List{
                         ForEach(self.searchListJeux.jeux){ jeu in
-                            ListRow(jeu: jeu)
+                            NavigationLink(destination: JeuView(jeu:jeu)){
+                                ListRow(jeu: jeu)
+                            }
                         }
                     }
                     if jeux.count == 0{
