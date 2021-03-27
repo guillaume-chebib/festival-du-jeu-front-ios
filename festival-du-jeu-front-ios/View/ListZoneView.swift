@@ -21,6 +21,12 @@ struct ListZoneView: View {
     }
 }
 
+struct ListZoneView_Previews: PreviewProvider {
+    static var previews: some View {
+        ListZoneView()
+        
+    }
+}
 
 
 

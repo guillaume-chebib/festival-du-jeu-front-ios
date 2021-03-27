@@ -11,6 +11,9 @@ import SwiftUI
 
 class ZoneViewModel :Identifiable{
     
+    var id = UUID()
+
+    
     @ObservedObject private(set) var model : Zone
     
     var id_zone : Int{
@@ -21,6 +24,9 @@ class ZoneViewModel :Identifiable{
     }
     var nom_zone: String{
         return model.nom_zone
+    }
+    var jeux_zone : [Jeu]{
+        return model.jeux_zone
     }
     
     init(zone:Zone) {

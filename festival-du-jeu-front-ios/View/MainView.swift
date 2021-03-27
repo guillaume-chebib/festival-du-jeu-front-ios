@@ -4,6 +4,9 @@ import SwiftUI
 struct MainView: View {
     /// search list used by SearchListView
     @StateObject var listJeux : SearchListJeuxViewModel   = SearchListJeuxViewModel(ListJeux())
+    
+    @StateObject var listEditeurs : SearchListEditeurViewModel   = SearchListEditeurViewModel(ListEditeur())
+
 
     /// which tab appear selected
     @State private var tabSelected  = 0
@@ -14,7 +17,7 @@ struct MainView: View {
                 .tabItem{
                     Label("Jeux", systemImage: "rectangle.and.text.magnifyingglass")
                 }.tag(0)
-            ListEditeurView()
+            ListEditeurView(searchListEditeurs: listEditeurs)
                 .tabItem{
                     Label("Editeurs", systemImage: "list.dash")
                 }.tag(1)
