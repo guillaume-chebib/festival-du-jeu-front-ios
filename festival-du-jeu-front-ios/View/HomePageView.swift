@@ -112,7 +112,7 @@ struct ListRow : View{
     var body: some View{
         HStack{
             VStack(alignment: .leading){
-                Text("\(jeu.titre_jeu) \(jeu.id_jeu)")
+                Text("\(jeu.titre_jeu)")
                     .font(.headline)
             }
         }

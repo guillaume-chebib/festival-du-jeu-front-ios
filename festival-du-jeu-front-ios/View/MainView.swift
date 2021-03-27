@@ -9,7 +9,20 @@ struct MainView: View {
     @State private var tabSelected  = 0
     
     var body: some View {
-        HomePageView(searchListJeux: listJeux)
+        TabView(selection: $tabSelected){
+            HomePageView(searchListJeux: listJeux)
+                .tabItem{
+                    Label("Jeux", systemImage: "rectangle.and.text.magnifyingglass")
+                }.tag(0)
+            ListEditeurView()
+                .tabItem{
+                    Label("Editeurs", systemImage: "list.dash")
+                }.tag(1)
+            ListZoneView()
+                .tabItem{
+                    Label("Zones", systemImage: "list.dash")
+                }.tag(2)
+        }
     }
 }
 

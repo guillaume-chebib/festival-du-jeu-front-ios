@@ -31,9 +31,11 @@ struct JeuView: View {
     
     var body: some View {
         
-            Text(jeu.titre_jeu)
-            Spacer()
-        
+        Text(jeu.titre_jeu).font(.title)
+        Text("Age minimum: " + String(jeu.age_min_jeu))
+        Text("Nombre de joueurs minimum: " + String(jeu.min_joueur_jeu))
+        Spacer()
+        	
     }
     
     
