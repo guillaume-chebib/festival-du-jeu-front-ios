@@ -50,7 +50,6 @@ struct HomePageView: View {
 //        stateChanged(state: searchPlaylist.playListState)
         return NavigationView{
             VStack{
-                Text("Bienvenue sur l'app du fetival du jeu")
                 Spacer()
                 HStack {
                     TextField("Rechercher ...", text: $text)
@@ -94,7 +93,7 @@ struct HomePageView: View {
                     }
                 }
             }
-            .navigationTitle("Accueil")
+            .navigationTitle("Liste des jeux")
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

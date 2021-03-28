@@ -43,8 +43,6 @@ struct ListEditeurView: View {
         
         return NavigationView{
             VStack{
-                Text("Bienvenue sur l'app du fetival du jeu")
-                Spacer()
                 HStack {
                     TextField("Rechercher ...", text: $text)
                         .padding(7)
@@ -84,14 +82,14 @@ struct ListEditeurView: View {
             if editeurs.count == 0{
                 VStack{
                     Spacer()
-                    Text("Aucun jeu disponible")
+                    Text("Aucun editeur disponible")
                     Spacer()
                 }
             }
         }
             }
         
-        .navigationTitle("Accueil")
+        .navigationTitle("Editeurs")
     }
     .navigationViewStyle(StackNavigationViewStyle())
     }
