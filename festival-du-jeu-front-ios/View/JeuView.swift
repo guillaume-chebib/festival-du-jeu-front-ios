@@ -34,6 +34,8 @@ struct JeuView: View {
         Text(jeu.titre_jeu).font(.title)
         Text("Age minimum: " + String(jeu.age_min_jeu))
         Text("Nombre de joueurs minimum: " + String(jeu.min_joueur_jeu))
+        Text("Societe: " + String(jeu.nom_societe_jeu))
+        Text("Zone: " + String(jeu.nom_zone_jeu))
         Spacer()
         	
     }

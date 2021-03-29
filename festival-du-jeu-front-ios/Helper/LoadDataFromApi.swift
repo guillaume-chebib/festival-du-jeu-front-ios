@@ -69,7 +69,7 @@ class LoadDataFromAPI {
         for tdata in data{
             
             
-            let jeu = Jeu(id: tdata.id_jeu, titre: tdata.titre_jeu, min: tdata.min_joueur_jeu, max: tdata.max_joueur_jeu, age: tdata.age_min_jeu, proto: tdata.proto_jeu, url: tdata.url_consignes_jeu)
+            let jeu = Jeu(id: tdata.id_jeu, titre: tdata.titre_jeu, min: tdata.min_joueur_jeu, max: tdata.max_joueur_jeu, age: tdata.age_min_jeu, proto: tdata.proto_jeu, url: tdata.url_consignes_jeu,editeur: tdata.nom_societe,zone: tdata.nom_zone)
             jeux.append(jeu)
         }
         return jeux
@@ -78,7 +78,7 @@ class LoadDataFromAPI {
     static func editeursData2Editeurs(data: [EditeursData]) -> [Editeur]?{
         var editeurs = [Editeur]()
         for tdata in data{
-            let editeur = Editeur(id_editeur: tdata.societe.id_societe, nom_editeur: tdata.societe.nom_societe, jeux_editeur: jeuData2Jeu(data: tdata.jeux) ?? [Jeu(id: 0, titre: "1", min: 0, max: 0, age: 0, proto: false, url: "a")])
+            let editeur = Editeur(id_editeur: tdata.societe.id_societe, nom_editeur: tdata.societe.nom_societe, jeux_editeur: jeuData2Jeu(data: tdata.jeux) ?? [Jeu(id: 0, titre: "", min: 0, max: 0, age: 0, proto: false, url: "",editeur: "",zone: "")])
             editeurs.append(editeur)
         }
         return editeurs

@@ -17,6 +17,8 @@ struct JeuData: Codable {
     public var age_min_jeu: Int
     public var proto_jeu: Bool
     public var url_consignes_jeu : String?
+    public var nom_societe : String
+    public var nom_zone : String
 }
 
 class SearchListJeuxIntent{

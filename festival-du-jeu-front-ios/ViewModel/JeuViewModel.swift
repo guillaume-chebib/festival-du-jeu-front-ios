@@ -36,6 +36,18 @@ class JeuViewModel :Identifiable{
         return model.url_consignes_jeu
     }
     
+    var nom_jeu : String {
+        return model.titre_jeu
+    }
+    
+    var nom_societe_jeu : String {
+        return model.nom_editeur_jeu
+    }
+    
+    var nom_zone_jeu : String {
+        return model.nom_zone_jeu
+    }
+    
     init(_ jeu: Jeu){
         self.model = jeu
     }
