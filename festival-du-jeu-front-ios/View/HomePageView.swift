@@ -44,6 +44,17 @@ struct HomePageView: View {
     @State private var text: String = ""
 
     @State private var isEditing = false
+    
+    func filterSearch(jeu: JeuViewModel) -> Bool {
+        
+        var res: Bool = true
+        
+        if (!text.isEmpty) {
+            res = jeu.titre_jeu.lowercased().contains(text.lowercased())
+        }
+                
+        return res
+    }
 
     
     var body: some View {
@@ -78,7 +89,7 @@ struct HomePageView: View {
                 Spacer()
                 ZStack{
                     List{
-                        ForEach(self.searchListJeux.jeux){ jeu in
+                        ForEach(self.searchListJeux.jeux.filter(filterSearch)){ jeu in
                             NavigationLink(destination: JeuView(jeu:jeu)){
                                 ListRow(jeu: jeu)
                             }

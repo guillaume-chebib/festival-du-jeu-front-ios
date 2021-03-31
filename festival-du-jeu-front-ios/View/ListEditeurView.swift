@@ -39,6 +39,19 @@ struct ListEditeurView: View {
 
     @State private var isEditing = false
     
+    
+    func filterSearch(editeur: EditeurViewModel) -> Bool {
+        
+        var res: Bool = true
+        
+        if (!text.isEmpty) {
+            res = editeur.nom_editeur.lowercased().contains(text.lowercased())
+        }
+                
+        return res
+    }
+
+    
     var body: some View {
         
         return NavigationView{
@@ -70,7 +83,7 @@ struct ListEditeurView: View {
 
         ZStack{
             List{
-                ForEach(self.searchListEditeurs.editeurs){ editeur in
+                ForEach(self.searchListEditeurs.editeurs.filter(filterSearch)){ editeur in
                     NavigationLink(destination: ListJeuView(jeux: editeur.jeux_editeur)
                     )
                     {
