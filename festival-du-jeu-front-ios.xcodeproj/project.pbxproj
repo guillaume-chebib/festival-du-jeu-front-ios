@@ -12,6 +12,7 @@
 		0D8A882F260B33BD003E5AC0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8A882E260B33BD003E5AC0 /* MainView.swift */; };
 		0D8D47FB260B1C2000B4DC67 /* Editeur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D47FA260B1C2000B4DC67 /* Editeur.swift */; };
 		B71DA36A260B837A00071013 /* ListJeux.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DA369260B837A00071013 /* ListJeux.swift */; };
+		B72704FC261484FA004BE392 /* ListZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72704FB261484FA004BE392 /* ListZone.swift */; };
 		B744D66B2609F06200A1276A /* Jeu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B744D66A2609F06200A1276A /* Jeu.swift */; };
 		B744D6702609F07E00A1276A /* JeuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B744D66F2609F07E00A1276A /* JeuViewModel.swift */; };
 		B744D6752609F0B500A1276A /* JeuIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B744D6742609F0B500A1276A /* JeuIntent.swift */; };
@@ -59,6 +60,7 @@
 		0D8A882E260B33BD003E5AC0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0D8D47FA260B1C2000B4DC67 /* Editeur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Editeur.swift; sourceTree = "<group>"; };
 		B71DA369260B837A00071013 /* ListJeux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListJeux.swift; sourceTree = "<group>"; };
+		B72704FB261484FA004BE392 /* ListZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListZone.swift; sourceTree = "<group>"; };
 		B744D66A2609F06200A1276A /* Jeu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jeu.swift; sourceTree = "<group>"; };
 		B744D66F2609F07E00A1276A /* JeuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuViewModel.swift; sourceTree = "<group>"; };
 		B744D6742609F0B500A1276A /* JeuIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuIntent.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				C323EDCF2609F3600063FCE6 /* Zone.swift */,
 				B71DA369260B837A00071013 /* ListJeux.swift */,
 				C3933FB9260FB19600739EEB /* ListEditeur.swift */,
+				B72704FB261484FA004BE392 /* ListZone.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3933FBA260FB19600739EEB /* ListEditeur.swift in Sources */,
+				B72704FC261484FA004BE392 /* ListZone.swift in Sources */,
 				C318613A260F7846008BBD1A /* ListZoneView.swift in Sources */,
 				C33E8E76260B2D530007CF53 /* LoadDataFromApi.swift in Sources */,
 				0D8A882F260B33BD003E5AC0 /* MainView.swift in Sources */,

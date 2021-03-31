@@ -1,9 +1,3 @@
-//
-//  PlaylistViewModel.swift
-//  Playlist
-//
-//  Created by Christophe Fiorio on 18/02/2021.
-//
 
 import Foundation
 import SwiftUI
@@ -96,7 +90,7 @@ class SearchListEditeurViewModel:  ObservableObject, ListEditeurDelegate{
         }
     }
     
-    /// initialization
+    /// initialization/Users/etud/Documents/festival-du-jeu-front-ios/festival-du-jeu-front-ios/Model/ListEditeur.swift
     /// - Parameter playlist: playlist model to be the ViewModel
     init(_ listEditeurs: ListEditeur){
         self.model = listEditeurs

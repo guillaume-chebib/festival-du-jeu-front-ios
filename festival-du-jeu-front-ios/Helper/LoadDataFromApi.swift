@@ -84,6 +84,15 @@ class LoadDataFromAPI {
         return editeurs
     }
     
+    static func zonesData2Zones(data: [ZoneData]) -> [Zone]?{
+        var zones = [Zone]()
+        for tdata in data{
+            let zone = Zone(id_zone: tdata.zone.id_zone, id_festival : tdata.zone.id_festival_zone, nom_zone: tdata.zone.nom_zone, jeux_zone: jeuData2Jeu(data: tdata.jeux) ?? [Jeu(id: 0, titre: "", min: 0, max: 0, age: 0, proto: false, url: "",editeur: "",zone: "")])
+            zones.append(zone)
+        }
+        return zones
+    }
+    
     static func loadJeuxFromAPI(url surl: String, endofrequest: @escaping (Result<[Jeu],HttpRequestError>) -> Void){
         guard let url = URL(string: surl) else {
             endofrequest(.failure(.badURL(surl)))
@@ -108,6 +117,12 @@ class LoadDataFromAPI {
     static func loadEditeursFromAPI(url: URL, endofrequest: @escaping (Result<[Editeur],HttpRequestError>) -> Void){
         self.searchEditeurs(url: url, endofrequest: endofrequest)
     }
+    
+    static func loadZonesFromAPI(url: URL, endofrequest: @escaping (Result<[Zone],HttpRequestError>) -> Void){
+        self.searchZones(url: url, endofrequest: endofrequest)
+    }
+    
+    
     static func search(url: URL, endofrequest: @escaping (Result<[Jeu],HttpRequestError>) -> Void){
         let request = URLRequest(url: url)
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -184,6 +199,59 @@ class LoadDataFromAPI {
                 }
                 DispatchQueue.main.async {
                     endofrequest(.success(editeurs))
+                }
+            }
+            else{
+                DispatchQueue.main.async {
+                    if let error = error {
+                        guard let error = error as? URLError else {
+                            endofrequest(.failure(.unknown))
+                            return
+                        }
+                        endofrequest(.failure(.failingURL(error)))
+                    }
+                    else{
+                        guard let response = response as? HTTPURLResponse else{
+                            endofrequest(.failure(.unknown))
+                            return
+                        }
+                        guard response.statusCode == 200 else {
+                            endofrequest(.failure(.requestFailed))
+                            return
+                        }
+                        endofrequest(.failure(.unknown))
+                    }
+                }
+            }
+        }.resume()
+    }
+    
+    static func searchZones(url: URL, endofrequest: @escaping (Result<[Zone],HttpRequestError>) -> Void){
+        let request = URLRequest(url: url)
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                let decodedData : Decodable?
+                
+                
+                    decodedData = try? JSONDecoder().decode([ZoneData].self, from: data)
+                
+                guard let decodedResponse = decodedData else {
+                    DispatchQueue.main.async { endofrequest(.failure(.JsonDecodingFailed)) }
+                    return
+                }
+                
+                var zonesData : [ZoneData]
+                
+                zonesData = (decodedResponse as! [ZoneData])
+                
+                
+                
+                guard let zones = self.zonesData2Zones(data: zonesData) else{
+                    DispatchQueue.main.async { endofrequest(.failure(.JsonDecodingFailed)) }
+                    return
+                }
+                DispatchQueue.main.async {
+                    endofrequest(.success(zones))
                 }
             }
             else{
