@@ -57,6 +57,11 @@ struct ListZoneView: View {
         return NavigationView{
             VStack{
                 HStack {
+                    Button(action: {
+                            self.intent.loadListeZones()}){
+                        Label("", systemImage: "arrow.clockwise")
+                            .padding(15)
+                    }
                     TextField("Rechercher ...", text: $text)
                         .padding(7)
                         .padding(.horizontal, 25)
@@ -99,6 +104,7 @@ struct ListZoneView: View {
                     Spacer()
                 }
             }
+            ErrorViewZone(state: searchState)
         }
             }
         
@@ -124,6 +130,29 @@ struct ZoneRow : View{
                 Text("\(zone.nom_zone)")
                     .font(.headline)
             }
+        }
+    }
+}
+
+struct ErrorViewZone : View{
+    let state : SearchListZonesState
+    var body: some View{
+        VStack{
+            Spacer()
+            switch state{
+            case .loading, .loaded:
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                    .scaleEffect(3)
+            case .loadingError(let error):
+                ErrorMessage(error: error)
+            default:
+                EmptyView()
+            }
+            if case let .loaded(data) = state{
+                Text("\(data.count) zones trouvées!")
+            }
+            Spacer()
         }
     }
 }

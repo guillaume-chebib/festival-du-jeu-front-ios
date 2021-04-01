@@ -57,6 +57,11 @@ struct ListEditeurView: View {
         return NavigationView{
             VStack{
                 HStack {
+                    Button(action: {
+                            self.intent.loadListeEditeurs()}){
+                        Label("", systemImage: "arrow.clockwise")
+                            .padding(15)
+                    }
                     TextField("Rechercher ...", text: $text)
                         .padding(7)
                         .padding(.horizontal, 25)
@@ -99,6 +104,7 @@ struct ListEditeurView: View {
                     Spacer()
                 }
             }
+            ErrorViewEditeurs(state: searchState)
         }
             }
         
@@ -124,6 +130,29 @@ struct EditeurRow : View{
                 Text("\(editeur.nom_editeur)")
                     .font(.headline)
             }
+        }
+    }
+}
+
+struct ErrorViewEditeurs : View{
+    let state : SearchListEditeursState
+    var body: some View{
+        VStack{
+            Spacer()
+            switch state{
+            case .loading, .loaded:
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                    .scaleEffect(3)
+            case .loadingError(let error):
+                ErrorMessage(error: error)
+            default:
+                EmptyView()
+            }
+            if case let .loaded(data) = state{
+                Text("\(data.count) editeurs trouvés!")
+            }
+            Spacer()
         }
     }
 }

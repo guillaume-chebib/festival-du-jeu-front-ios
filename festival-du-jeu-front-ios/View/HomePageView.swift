@@ -63,6 +63,11 @@ struct HomePageView: View {
             VStack{
                 Spacer()
                 HStack {
+                    Button(action: {
+                            self.intent.loadListeJeux()}){
+                        Label("", systemImage: "arrow.clockwise")
+                            .padding(15)
+                    }
                     TextField("Rechercher ...", text: $text)
                         .padding(7)
                         .padding(.horizontal, 25)
@@ -102,6 +107,7 @@ struct HomePageView: View {
                             Spacer()
                         }
                     }
+                    ErrorViewJeux(state: searchState)
                 }
             }
             .navigationTitle("Liste des jeux")
@@ -124,6 +130,53 @@ struct ListRow : View{
             VStack(alignment: .leading){
                 Text("\(jeu.titre_jeu)")
                     .font(.headline)
+            }
+        }
+    }
+}
+
+struct ErrorViewJeux : View{
+    let state : SearchListJeuxState
+    var body: some View{
+        VStack{
+            Spacer()
+            switch state{
+            case .loading, .loaded:
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                    .scaleEffect(3)
+            case .loadingError(let error):
+                ErrorMessage(error: error)
+            default:
+                EmptyView()
+            }
+            if case let .loaded(data) = state{
+                Text("\(data.count) jeux trouvées!")
+            }
+            Spacer()
+        }
+    }
+}
+
+
+
+
+struct ErrorMessage : View{
+    let error :  Error
+    var body: some View{
+        VStack{
+            Text("Erreurs de la requête")
+                .foregroundColor(.red)
+                .font(.title)
+            if let error = error  as? HttpRequestError {
+                Text("\(error.description)")
+                    .italic()
+                    .foregroundColor(.gray)
+            }
+            else{
+                Text("Unknown error")
+                    .foregroundColor(.red)
+                    .font(.title)
             }
         }
     }
