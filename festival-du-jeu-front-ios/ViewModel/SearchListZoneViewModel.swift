@@ -39,6 +39,7 @@ class SearchListZoneViewModel:  ObservableObject, ListZoneDelegate{
     func newListZone() {
         self.zones.removeAll()
         for zone in self.model.zones{
+            print(zone)
             self.zones.append(ZoneViewModel(zone: zone))
         }
         #if DEBUG

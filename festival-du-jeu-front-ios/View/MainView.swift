@@ -6,6 +6,8 @@ struct MainView: View {
     @StateObject var listJeux : SearchListJeuxViewModel   = SearchListJeuxViewModel(ListJeux())
     
     @StateObject var listEditeurs : SearchListEditeurViewModel   = SearchListEditeurViewModel(ListEditeur())
+    
+    @StateObject var listZones : SearchListZoneViewModel   = SearchListZoneViewModel(ListZone())
 
 
     /// which tab appear selected
@@ -21,7 +23,7 @@ struct MainView: View {
                 .tabItem{
                     Label("Editeurs", systemImage: "list.dash")
                 }.tag(1)
-            ListZoneView()
+            ListZoneView(searchListZones: listZones)
                 .tabItem{
                     Label("Zones", systemImage: "list.dash")
                 }.tag(2)

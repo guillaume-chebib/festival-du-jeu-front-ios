@@ -26,6 +26,13 @@ struct EditeursData: Codable {
     public var societe: EditeurData
     public var jeux: [JeuData]
 }
+
+struct ZonesData: Codable {
+    public var zone: ZoneData
+    public var jeux: [JeuData]
+}
+
+
 enum HttpRequestError : Error, CustomStringConvertible{
     case fileNotFound(String)
     case badURL(String)
@@ -84,10 +91,10 @@ class LoadDataFromAPI {
         return editeurs
     }
     
-    static func zonesData2Zones(data: [ZoneData]) -> [Zone]?{
+    static func zonesData2Zones(data: [ZonesData]) -> [Zone]?{
         var zones = [Zone]()
         for tdata in data{
-            let zone = Zone(id_zone: tdata.zone.id_zone, id_festival : tdata.zone.id_festival_zone, nom_zone: tdata.zone.nom_zone, jeux_zone: jeuData2Jeu(data: tdata.jeux) ?? [Jeu(id: 0, titre: "", min: 0, max: 0, age: 0, proto: false, url: "",editeur: "",zone: "")])
+            let zone = Zone(id_zone: tdata.zone.id_zone, id_festival : tdata.zone.id_festival_zone, nom_zone: tdata.zone.nom_zone, jeux: jeuData2Jeu(data: tdata.jeux) ?? [Jeu(id: 0, titre: "", min: 0, max: 0, age: 0, proto: false, url: "",editeur: "",zone: "")])
             zones.append(zone)
         }
         return zones
@@ -109,6 +116,13 @@ class LoadDataFromAPI {
         self.loadEditeursFromAPI(url: url, endofrequest: endofrequest)
     }
     
+    static func loadZonesFromAPI(url surl: String, endofrequest: @escaping (Result<[Zone],HttpRequestError>) -> Void){
+        guard let url = URL(string: surl) else {
+            endofrequest(.failure(.badURL(surl)))
+            return
+        }
+        self.loadZonesFromAPI(url: url, endofrequest: endofrequest)
+    }
     
     static func loadJeuxFromAPI(url: URL, endofrequest: @escaping (Result<[Jeu],HttpRequestError>) -> Void){
         self.search(url: url, endofrequest: endofrequest)
@@ -233,16 +247,16 @@ class LoadDataFromAPI {
                 let decodedData : Decodable?
                 
                 
-                    decodedData = try? JSONDecoder().decode([ZoneData].self, from: data)
+                    decodedData = try? JSONDecoder().decode([ZonesData].self, from: data)
                 
                 guard let decodedResponse = decodedData else {
                     DispatchQueue.main.async { endofrequest(.failure(.JsonDecodingFailed)) }
                     return
                 }
                 
-                var zonesData : [ZoneData]
+                var zonesData : [ZonesData]
                 
-                zonesData = (decodedResponse as! [ZoneData])
+                zonesData = (decodedResponse as! [ZonesData])
                 
                 
                 

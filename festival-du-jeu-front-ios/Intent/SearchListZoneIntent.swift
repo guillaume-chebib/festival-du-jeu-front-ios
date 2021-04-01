@@ -11,6 +11,7 @@ import SwiftUI
 
 struct ZoneData: Codable {
     public var id_zone: Int
+    public var id_festival_zone : Int
     public var nom_zone: String
 }
 
@@ -49,11 +50,11 @@ class SearchListZoneIntent{
         }
     }
     
-    func loadListeEditeurs() {
+    func loadListeZones() {
         var adresse = "https://festival-du-jeu-api.herokuapp.com/public/festival/zone"
         self.listZones.listZonesState = .loading(adresse)
         //call API with httJson Loaded
-        LoadDataFromAPI.loadDataFromAPI(url: adresse,endofrequest: httpJsonLoaded)
+        LoadDataFromAPI.loadZonesFromAPI(url: adresse,endofrequest: httpJsonLoaded)
 
     }
 
