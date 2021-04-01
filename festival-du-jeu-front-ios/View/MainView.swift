@@ -25,7 +25,7 @@ struct MainView: View {
                 }.tag(1)
             ListZoneView(searchListZones: listZones)
                 .tabItem{
-                    Label("Zones", systemImage: "list.dash")
+                    Label("Zones", systemImage: "location")
                 }.tag(2)
         }
     }

@@ -48,6 +48,11 @@ class JeuViewModel :Identifiable{
         return model.nom_zone_jeu
     }
     
+    var duree_jeu : Int {
+        return model.duree_jeu
+    }
+
+    
     init(_ jeu: Jeu){
         self.model = jeu
     }

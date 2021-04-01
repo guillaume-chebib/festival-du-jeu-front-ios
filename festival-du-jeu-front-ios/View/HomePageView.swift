@@ -90,8 +90,8 @@ struct HomePageView: View {
                 ZStack{
                     List{
                         ForEach(self.searchListJeux.jeux.filter(filterSearch)){ jeu in
-                            NavigationLink(destination: JeuView(jeu:jeu)){
-                                ListRow(jeu: jeu)
+                            NavigationLink(destination: JeuView(jeu:jeu.model)){
+                                ListRow(jeu: jeu.model)
                             }
                         }
                     }
@@ -118,7 +118,7 @@ struct SearchListView_Previews: PreviewProvider {
 }
 
 struct ListRow : View{
-    let jeu : JeuViewModel
+    let jeu : Jeu
     var body: some View{
         HStack{
             VStack(alignment: .leading){

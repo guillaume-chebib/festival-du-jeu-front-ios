@@ -21,7 +21,7 @@ struct ListJeuView: View {
         ZStack{
             List{
                 ForEach(self.jeux){ jeu in
-                    NavigationLink(destination: Text(jeu.titre_jeu)){
+                    NavigationLink(destination: JeuView(jeu: jeu)){
                         Text(jeu.titre_jeu)
                     }
                 }

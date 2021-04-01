@@ -27,9 +27,10 @@ class Jeu : Identifiable, ObservableObject, Encodable, Equatable, CustomStringCo
     private(set) var url_consignes_jeu: String?
     private(set) var nom_editeur_jeu: String
     private(set) var nom_zone_jeu: String
+    private(set) var duree_jeu: Int
     
     
-    init(id: Int, titre: String, min: Int, max: Int?, age: Int, proto: Bool, url : String?, editeur:String,zone:String){
+    init(id: Int, titre: String, min: Int, max: Int?, age: Int, proto: Bool, url : String?, editeur:String,zone:String, duree: Int){
         self.id_jeu      = id
         self.titre_jeu    = titre
         self.min_joueur_jeu  = min
@@ -39,6 +40,7 @@ class Jeu : Identifiable, ObservableObject, Encodable, Equatable, CustomStringCo
         self.url_consignes_jeu = url
         self.nom_editeur_jeu = editeur
         self.nom_zone_jeu = zone
+        self.duree_jeu = duree
     }
     
     
